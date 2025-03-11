@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Slot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header>
+        Smart Car Parking System
+    </header>
+
+    <div class="container">
+        <h2>Book Your Parking Slot</h2>
+        
+        <form action="/confirm_booking" method="post">
+            <label for="user_name">Your Name:</label>
+            <input type="text" id="user_name" name="user_name" required>
+            
+            <label for="slot_id">Select Slot:</label>
+            <select id="slot_id" name="slot_id" required>
+                {% for slot in slots %}
+                    <option value="{{ slot.id }}">{{ slot.place }} - {{ slot.slot_name }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit">Confirm Booking</button>
+        </form>
+
+        <a href="{{ url_for('index') }}" class="button-link">
+            <button>Back to Home</button>
+        </a>
+    </div>
+
+</body>
+</html>

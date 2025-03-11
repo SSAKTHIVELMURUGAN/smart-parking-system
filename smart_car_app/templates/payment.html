@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPI Payment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header>
+        Smart Car Parking System
+    </header>
+
+    <div class="container">
+        <h2>Complete Your Payment via UPI 💳</h2>
+
+        <form action="/process_payment" method="post">
+            <input type="hidden" name="slot_id" value="{{ slot.id }}">
+            
+            <label for="user_name">Your Name:</label>
+            <input type="text" id="user_name" name="user_name" required>
+        
+            <label for="upi_id">Enter UPI ID:</label>
+            <input type="text" id="upi_id" name="upi_id" placeholder="yourname@upi" required>
+        
+            <button type="submit">Pay Now via UPI</button>
+        </form>
+        
+
+        <br>
+        <a href="{{ url_for('index') }}" class="button-link">
+            <button>Cancel</button>
+        </a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Car Parking System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header>
+        Smart Car Parking System
+    </header>
+
+    <div class="container">
+        <h2>Welcome to the Smart Parking System</h2>
+        <p>Book your parking slot easily with our system.</p>
+        <a href="{{ url_for('bookslot') }}" class="button-link">
+            <button>Book Slot</button>
+        </a>
+    </div>
+
+</body>
+</html>
