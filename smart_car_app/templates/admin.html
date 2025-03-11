@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>Admin Dashboard - Smart Parking System</h1>
+        <a href="{{ url_for('admin_logout') }}">
+            <button class="logout-button">Logout</button>
+        </a>
+    </header>
+
+
+    <div class="container">
+        <h2>Parking Slots Overview</h2>
+        <table>
+            <tr>
+                <th>Slot Name</th>
+                <th>Place</th>
+                <th>Availability</th>
+                <th>Booked By</th>
+                <th>Booking Time</th>
+                <th>Backup Slot</th>
+                <th>Actions</th>
+            </tr>
+            {% for slot in slots %}
+            <tr>
+                <td>{{ slot.slot_name }}</td>
+                <td>{{ slot.place }}</td>
+                <td>{{ "Available" if slot.is_available else "Booked" }}</td>
+                <td>{{ slot.booked_by if slot.booked_by else "-" }}</td>
+                <td>{{ slot.booking_time if slot.booking_time else "-" }}</td>
+                <td>{{ slot.backup_slot if slot.backup_slot else "-" }}</td>
+                <td>
+                    {% if not slot.is_available %}
+                    <form action="{{ url_for('release_slot', slot_id=slot.id) }}" method="post">
+                        <button type="submit">Release Slot</button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h2>Payment Transactions</h2>
+        <table>
+            <tr>
+                <th>Transaction ID</th>
+                <th>Slot Name</th>
+                <th>User Name</th>
+                <th>UPI ID</th>
+                <th>Amount</th>
+                <th>Payment Time</th>
+            </tr>
+            {% for payment in payments %}
+            <tr>
+                <td>{{ payment.id }}</td>
+                <td>{{ payment.slot_id }}</td>
+                <td>{{ payment.user_name }}</td>
+                <td>{{ payment.upi_id }}</td>
+                <td>₹{{ payment.amount }}</td>
+                <td>{{ payment.payment_time }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <br>
+        <a href="{{ url_for('index') }}" class="button-link">
+            <button>Back to Home</button>
+        </a>
+    </div>
+
+</body>
+</html>
