@@ -9,7 +9,7 @@
 <body>
 
     <header>
-        Smart Car Parking System
+        Smart Parking System
     </header>
 
     <div class="container">
@@ -18,7 +18,11 @@
         <p><strong>Amount Paid:</strong> ₹50.0</p>
         <p><strong>Slot Number:</strong> {{ slot_id }}</p>
         <p><strong>Paid via UPI:</strong> {{ upi_id }}</p>
-
+        <h3>Your QR Code for Entry</h3>
+        <img src="{{ qr_code }}" alt="QR Code">
+        
+        <p>Scan this QR code at the entry gate to access your parking slot.</p>
+    
         <a href="{{ url_for('index') }}" class="button-link">
             <button>Back to Home</button>
         </a>

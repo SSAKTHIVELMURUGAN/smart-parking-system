@@ -9,7 +9,7 @@
 <body>
 
     <header>
-        Smart Car Parking System
+        Smart Parking System
     </header>
 
     <div class="container">
@@ -18,7 +18,19 @@
         <form action="/confirm_booking" method="post">
             <label for="user_name">Your Name:</label>
             <input type="text" id="user_name" name="user_name" required>
-            
+
+            <label for="mobile_number">Mobile Number:</label>
+            <input type="tel" id="mobile_number" name="mobile_number" pattern="[0-9]{10}" required>
+
+            <label for="vehicle_type">Vehicle Type:</label>
+            <select id="vehicle_type" name="vehicle_type" required>
+                <option value="Car">Car</option>
+                <option value="Bike">Bike</option>
+            </select>
+
+            <label for="vehicle_number">Vehicle Number:</label>
+            <input type="text" id="vehicle_number" name="vehicle_number" placeholder="Ex: TN 07 AB 1234" required>
+
             <label for="slot_id">Select Slot:</label>
             <select id="slot_id" name="slot_id" required>
                 {% for slot in slots %}
@@ -26,8 +38,16 @@
                 {% endfor %}
             </select>
 
+            <label for="start_time">Booking Start Time:</label>
+            <input type="datetime-local" id="booking_start_time" name="booking_start_time" required>
+
+            <label for="end_time">Booking End Time:</label>
+            <input type="datetime-local" id="booking_end_time" name="booking_end_time" required>
+
             <button type="submit">Confirm Booking</button>
         </form>
+
+
 
         <a href="{{ url_for('index') }}" class="button-link">
             <button>Back to Home</button>

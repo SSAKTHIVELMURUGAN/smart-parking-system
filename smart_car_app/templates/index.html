@@ -3,26 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Car Parking System</title>
+    <title>Smart Parking System</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
     <header>
-        Smart Car Parking System
+        <h1>Smart Parking System</h1>
     </header>
 
     <div class="container">
         <h2>Welcome to the Smart Parking System</h2>
         <p>Book your parking slot easily with our system.</p>
+
         <a href="{{ url_for('bookslot') }}" class="button-link">
             <button>Book Slot</button>
         </a>
-        <br><br>
+
+        <a href="{{ url_for('parking_status') }}" class="button-link">
+            <button>Show Live Parking Status</button>
+        </a>
+
         <a href="{{ url_for('admin_login') }}" class="button-link">
             <button class="admin-button">Admin Login</button>
         </a>
 
+        <br><br>
+
+         <a href="{{ url_for('upload_video') }}" class="button-link">
+            <button class="upload-button" style="background-color: #28a745; color: white; font-size: 16px; padding: 10px 20px; border: none; cursor: pointer; border-radius: 5px;">
+                Upload Video (Number Plate Recognition)
+            </button>
+        </a>
+
+        <br><br>
+
+
+        {% if session.get('username') %}
+            <p>Welcome, {{ session['username'] }}!</p>
+            <!-- User Dashboard Button -->
+            <a href="{{ url_for('user_dashboard') }}" class="button-link">
+                <button class="dashboard-button">User Dashboard</button>
+            </a>
+            
+            <a href="{{ url_for('user_logout') }}" class="button-link">
+                <button class="logout-button">Logout</button>
+            </a>
+        {% else %}
+            <a href="{{ url_for('user_login') }}" class="button-link">
+                <button class="login-button">Login</button>
+            </a>
+        {% endif %}
     </div>
 
 </body>

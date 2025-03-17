@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            width: 80%;
+            margin: 30px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h2,
+        h3 {
+            color: #333;
+        }
+
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background: white;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .section-title {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .button-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .button-link:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">User Dashboard</div>
+    <div class="container">
+        <h2>Welcome, {{ user['username'] }}</h2>
+        <a href="{{ url_for('index') }}" class="button-link">Back to Home</a>
+        <h3 class="section-title">Your Booking Details</h3>
+        <table>
+            <tr>
+                <th>Vehicle Type</th>
+                <th>Vehicle Number</th>
+                <th>Slot</th>
+                <th>Place</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+            </tr>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking['vehicle_type'] }}</td>
+                <td>{{ booking['vehicle_number'] }}</td>
+                <td>{{ booking['slot_name'] }}</td>
+                <td>{{ booking['place'] }}</td>
+                <td>{{ booking['booking_start_time'] }}</td>
+                <td>{{ booking['booking_end_time'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h3 class="section-title" style="background-color: #28a745;">Your Payment Details</h3>
+        <table>
+            <tr>
+                <th>Slot</th>
+                <th>Place</th>
+                <th>UPI ID</th>
+                <th>Amount</th>
+                <th>Payment Time</th>
+            </tr>
+            {% for payment in payments %}
+            <tr>
+                <td>{{ payment['slot_name'] }}</td>
+                <td>{{ payment['place'] }}</td>
+                <td>{{ payment['upi_id'] }}</td>
+                <td>{{ payment['amount'] }}</td>
+                <td>{{ payment['payment_time'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h3 class="section-title" style="background-color: #dc3545;">Your Booked Vehicle Slots</h3>
+        <table>
+            <tr>
+                <th>Place</th>
+                <th>Slot Name</th>
+                <th>Booking Time</th>
+                <th>Sensor Status</th>
+                <th>Action</th>
+            </tr>
+            {% for slot in slots %}
+            <tr>
+                <td>{{ slot['place'] }}</td>
+                <td>{{ slot['slot_name'] }}</td>
+                <td>{{ slot['booking_time'] }}</td>
+                <td>{{ "Occupied" if slot['sensor_status'] == 1 else "Free" }}</td>
+                <td>
+                    {% if slot['sensor_status'] == 1 %}
+                    <form action="{{ url_for('checkout') }}" method="post">
+                        <button type="submit" class="button-link" style="background-color: #28a745;">Checkout</button>
+                    </form>
+                    {% else %}
+                    <span style="color: gray;">Already Checked Out</span>
+                    {% endif %}
+                </td>
+        
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+
+</html>

@@ -9,16 +9,20 @@
 <body>
 
     <header>
-        Smart Car Parking System
+        Smart Parking System
     </header>
 
     <div class="container">
         <h2>Booking Confirmed ✅</h2>
         
         <p><strong>Name:</strong> {{ user_name }}</p>
+        <p><strong>Mobile Number:</strong> {{ mobile_number }}</p>
+        <p><strong>Vehicle Type:</strong> {{ vehicle_type }}</p>
+        <p><strong>Vehicle Number:</strong> {{ vehicle_number }}</p>
         <p><strong>Slot Name:</strong> {{ slot.slot_name }}</p>
         <p><strong>Location:</strong> {{ slot.place }}</p>
-        <p><strong>Booking Time:</strong> {{ booking_time }}</p>
+        <p><strong>Booking Start Time:</strong> {{ booking_start_time }}</p>
+        <p><strong>Booking End Time:</strong> {{ booking_end_time }}</p>
 
         <a href="{{ url_for('payment', slot_id=slot.id) }}" class="button-link">
             <button>Proceed to Payment 💳</button>
